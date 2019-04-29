@@ -16,6 +16,7 @@
 package me.zbl.concurrency
 
 import java.lang.Thread.sleep
+import kotlin.concurrent.thread
 
 /**
  * @author ZHENG BAO LE
@@ -29,8 +30,7 @@ val runToBeJoined = {
 
 fun main() {
     println("main thread started")
-    val thread = Thread(runToBeJoined)
-    thread.start()
+    val thread = thread(block = runToBeJoined)
     thread.join()
     println("main thread has finished")
 }

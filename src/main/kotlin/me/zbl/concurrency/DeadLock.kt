@@ -15,19 +15,19 @@
  */
 package me.zbl.concurrency
 
+import kotlin.concurrent.thread
+
 /**
  * @author ZHENG BAO LE
  * @since 2019-04-29
  */
 class Friend(private val name: String) {
-    @Synchronized
-    fun bow(friend: Friend) {
+    @Synchronized fun bow(friend: Friend) {
         println("$name: ${friend.name} has bowed to me.")
         friend.bowBack(this)
     }
 
-    @Synchronized
-    fun bowBack(friend: Friend) {
+    @Synchronized fun bowBack(friend: Friend) {
         println("$name: ${friend.name} has bowed back to me.")
     }
 }
@@ -35,8 +35,6 @@ class Friend(private val name: String) {
 fun main() {
     val james = Friend("James")
     val tom = Friend("Tom")
-    val a = Thread { james.bow(tom) }
-    val b = Thread { tom.bow(james) }
-    a.start()
-    b.start()
+    thread { james.bow(tom) }
+    thread { tom.bow(james) }
 }

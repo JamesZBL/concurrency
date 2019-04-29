@@ -15,6 +15,8 @@
  */
 package me.zbl.concurrency
 
+import kotlin.concurrent.thread
+
 /**
  * @author ZHENG BAO LE
  * @since 2019-04-28
@@ -43,10 +45,8 @@ fun main() {
                 interference.decrement()
             }
         }
-        val a = Thread(increment)
-        val b = Thread(decrement)
-        a.start()
-        b.start()
+        val a = thread(block = increment)
+        val b = thread(block = decrement)
         a.join()
         b.join()
         val final = interference.c

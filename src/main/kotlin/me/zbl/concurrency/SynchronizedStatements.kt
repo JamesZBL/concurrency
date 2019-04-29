@@ -16,6 +16,7 @@
 package me.zbl.concurrency
 
 import java.util.concurrent.CopyOnWriteArrayList
+import kotlin.concurrent.thread
 
 /**
  * @author ZHENG BAO LE
@@ -48,10 +49,8 @@ fun main() {
             wrapper.addName(i.toString())
         }
     }
-    val a = Thread(addNameA)
-    val b = Thread(addNameB)
-    a.start()
-    b.start()
+    val a = thread(block = addNameA)
+    val b = thread(block = addNameB)
     a.join()
     b.join()
     print(

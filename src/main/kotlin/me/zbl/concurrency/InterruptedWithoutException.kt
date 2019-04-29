@@ -16,6 +16,7 @@
 package me.zbl.concurrency
 
 import java.lang.Thread.interrupted
+import kotlin.concurrent.thread
 
 /**
  * @author ZHENG BAO LE
@@ -38,7 +39,6 @@ val runWithoutException = {
 
 fun main() {
 
-    val thread = Thread(runWithoutException)
-    thread.start()
+    val thread = thread { runWithoutException() }
     thread.interrupt()
 }

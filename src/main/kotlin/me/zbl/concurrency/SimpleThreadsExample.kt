@@ -18,6 +18,7 @@ package me.zbl.concurrency
 import java.lang.System.currentTimeMillis
 import java.lang.Thread.currentThread
 import java.lang.Thread.sleep
+import kotlin.concurrent.thread
 
 /**
  * @author ZHENG BAO LE
@@ -49,8 +50,7 @@ val messageLoop = {
 fun main() {
     threadMessage("Starting message loop thread")
     val startTime: Long = currentTimeMillis()
-    val thread = Thread(messageLoop)
-    thread.start()
+    val thread = thread(block = messageLoop)
     threadMessage("Waiting for message loop thread to finish")
     while (thread.isAlive) {
         threadMessage("Still waiting...")

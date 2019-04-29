@@ -15,18 +15,18 @@
  */
 package me.zbl.concurrency
 
+import kotlin.concurrent.thread
+
 /**
  * @author ZHENG BAO LE
  * @since 2019-04-28
  */
 class SynchronizedCounter(var c: Int = 0) {
-    @Synchronized
-    fun increment() {
+    @Synchronized fun increment() {
         c++
     }
 
-    @Synchronized
-    fun decrement() {
+    @Synchronized fun decrement() {
         c--
     }
 }
@@ -46,10 +46,8 @@ fun main() {
                 interference.decrement()
             }
         }
-        val a = Thread(increment)
-        val b = Thread(decrement)
-        a.start()
-        b.start()
+        val a = thread(block = increment)
+        val b = thread(block = decrement)
         a.join()
         b.join()
         val final = interference.c

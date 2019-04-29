@@ -16,6 +16,7 @@
 package me.zbl.concurrency
 
 import java.lang.Thread.sleep
+import kotlin.concurrent.thread
 
 /**
  * @author ZHENG BAO LE
@@ -42,7 +43,6 @@ val runWithException = f@{
 
 fun main() {
 
-    val thread = Thread(runWithException)
-    thread.start()
+    val thread = thread(block = runWithException)
     thread.interrupt()
 }

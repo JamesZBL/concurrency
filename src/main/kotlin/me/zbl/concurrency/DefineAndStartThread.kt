@@ -15,17 +15,17 @@
  */
 package me.zbl.concurrency
 
+import kotlin.concurrent.thread
+
 /**
  * @author ZHENG BAO LE
  * @since 2019-04-28
  */
 
-class HelloRunnable : Runnable {
-    override fun run() {
-        println("Hello from a thread")
-    }
+val HelloRunnable = {
+    println("Hello from a thread")
 }
 
 fun main() {
-    Thread(HelloRunnable()).start()
+    thread { HelloRunnable() }
 }
