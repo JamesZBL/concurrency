@@ -31,10 +31,18 @@ fun calc(i: Int): Int {
 }
 
 fun main() {
-    val future: CompletableFuture<Int> = supplyAsync { calc(3890) }
+    val future: CompletableFuture<String>? =
+        supplyAsync { calc(10) }
+            .thenApply { it + 10 }
+            .thenApply { it * 2 }
+            .thenApply { it.toString() }
+            .thenApply {
+                threadMessage("I calculated the result: $it")
+                it
+            }
     for (i in 0 until 5) {
         threadMessage("I'm doing something else...")
         sleep(1000)
     }
-    println("I got the final result: ${future.get()}")
+    threadMessage("I got the final result: ${future?.get()}")
 }
